@@ -6,7 +6,7 @@
 /*   By: tebetta <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/13 13:41:51 by tebetta           #+#    #+#             */
-/*   Updated: 2019/10/28 21:45:26 by tebetta          ###   ########.fr       */
+/*   Updated: 2019/11/18 16:06:22 by tebetta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,5 @@ void				ft_lstclear(t_list **lst, void (*del)(void *));
 void				ft_lstiter(t_list *lst, void (*f)(void *));
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 					void (*del)(void *));
+char   				*ft_strncpy(char *dest, char *src, unsigned int n);
 #endif

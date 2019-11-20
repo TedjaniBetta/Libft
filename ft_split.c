@@ -6,76 +6,82 @@
 /*   By: tebetta <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/20 19:09:10 by tebetta           #+#    #+#             */
-/*   Updated: 2019/11/10 22:51:20 by tebetta          ###   ########.fr       */
+/*   Updated: 2019/11/18 16:25:23 by tebetta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
-static size_t	compt_mot(char const *s, char c)
+static int ft_countwords(char const *s, char c)
 {
-	size_t	count;
-	size_t	i;
+    int letter;
+    int words;
 
-	count = 0;
-	i = 0;
-	if (s[i] == '\0')
-		return (0);
-	while (s[i] != '\0')
-	{
-		while (s[i] == c)
-			i++;
-		if (s[i] != c && s[i] != '\0')
-			count++;
-		while (s[i] != c && s[i] != '\0')
-			i++;
-	}
-	return (count);
+    letter = 0;
+    words = 0;
+    while (s[letter])
+    {
+        if (s[letter] != c)
+            words++;
+        else if (s[letter] != c && s[letter - 1] == c)
+            words++;
+        letter++;
+    }
+    return (words);
 }
 
-static size_t	compt_let(char const *str, size_t index, char c)
+static char    *ft_strcsub(char *s, char c)
 {
-	size_t		let;
+    size_t      i;
+    char        *tmp;
 
-	let = 0;
-	while (str[index] != '\0' && str[index] != c)
-	{
-		index++;
-		let++;
-	}
-	return (let);
+    i = 0;
+    while (s[i] && s[i] != c)
+        i++;
+    if (!(tmp = (char *)malloc(sizeof(*tmp) * (i + 1))))
+        return (NULL);
+    ft_strncpy(tmp, s, i);
+    return (tmp);
 }
 
-static	char	**free_tab(char **tab, int j)
+char    **ft_split(char const *s, char c)
 {
-	while (j-- > 0)
-		free(tab[j]);
-	free(tab);
-	return (NULL);
+    char    **tab;
+    int     itab;
+    int     istr;
+    int     i;
+
+    i = 0;
+    istr = 0;
+    itab = 0;
+    if (!(tab = (char**)malloc(sizeof(char *) * (ft_countwords(s, c) + 1))))
+        return (NULL);
+    while (s[istr])
+    {
+        while (s[istr] && s[istr] == c)
+            istr++;
+        tab[itab++] = ft_strcsub((char *)s + istr, c);
+        while (s[istr] && s[istr] != c)
+            istr++;
+    }
+    i = 0;
+    tab[itab] = 0;
+    while (tab[i])
+    {
+        i++;
+    }
+    return (tab);
 }
-
-char			**ft_split(char const *s, char c)
+int main()
 {
-	char		**tab;
-	size_t		i;
-	size_t		j;
-
-	i = 0;
-	j = 0;
-	if (!s || !(tab = (char**)malloc(sizeof(char *) * (compt_mot(s, c) + 1))))
-		return (NULL);
-	while (s[i] != '\0')
-	{
-		if (s[i] == c)
-			i++;
-		if (s[i] != c && j < compt_mot(s, c))
-		{
-			if (!((tab[j++] = ft_substr(s, i, compt_let(s, i, c)))))
-				return (free_tab(tab, j));
-			while (s[i] != '\0' && s[i] != c)
-				i++;
-		}
-	}
-	tab[j] = 0;
-	return (tab);
+    char **tmp;
+    int i = 0;
+    tmp = ft_split("Bonjour cavatoi", ' ');
+    while (tmp[i])
+    {
+        printf("%s\n", tmp[i]);
+        i++;
+    }
+    return (0);
 }

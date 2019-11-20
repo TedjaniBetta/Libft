@@ -6,7 +6,7 @@
 #    By: tebetta <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/13 17:10:45 by tebetta           #+#    #+#              #
-#    Updated: 2019/10/24 20:07:06 by tebetta          ###   ########.fr        #
+#    Updated: 2019/11/18 16:06:35 by tebetta          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,6 @@ SRC=ft_atoi.c \
 	ft_calloc.c \
 	ft_strdup.c \
 	ft_substr.c \
-	ft_strcpy.c \
 	ft_strjoin.c \
 	ft_strtrim.c \
 	ft_split.c \
@@ -47,11 +46,8 @@ SRC=ft_atoi.c \
 	ft_putstr_fd.c \
 	ft_putnbr_fd.c \
 	ft_putendl_fd.c \
-	ft_strcat.c \
-	ft_strrev.c \
 	ft_itoa.c \
 	ft_strmapi.c \
-	ft_lstnew.c \
 
 BONUS=	ft_lstadd_front.c \
 		ft_lstsize.c \
@@ -60,7 +56,9 @@ BONUS=	ft_lstadd_front.c \
 		ft_lstdelone.c \
 		ft_lstclear.c \
 		ft_lstiter.c \
-		ft_lstmap.c
+		ft_lstmap.c \
+		ft_lstnew.c \
+		ft_strncpy.c
 
 OBJ= $(SRC:.c=.o)
 
@@ -72,8 +70,8 @@ $(NAME): $(OBJ)
 	ar rc $(NAME) $^
 	ranlib $(NAME)
 
-# .o: .c
-# 	gcc $(FLAGS) -I./ -o $@ -c $<
+.o: .c
+	gcc $(FLAGS) -I./ -o $@ -c $<
 
 bonus: $(OBJ) $(OBJ_BON)
 	ar rc $(NAME) $^
